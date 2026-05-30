@@ -51,7 +51,7 @@ variable "subnets" {
     name                 = string
     rg_name  = string
     vnet_name = string
-    address_prefixes     = list(string)
-    nsg_key              = string
+    address_prefixes     = optional(list(string))
+    nsg_key              = optional(string)
   }))
 }

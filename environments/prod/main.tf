@@ -37,6 +37,13 @@ module "pip" {
   public_ips = var.public_ips
   depends_on = [module.resource_group]
 }
+
+# =========================
+# NETWORK INTERFACE
+# =========================
+
+
+# =========================
 # VIRTUAL MACHINE
 # =========================
 module "computing" {

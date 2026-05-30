@@ -1,3 +1,4 @@
+
 terraform {
   required_version = ">= 1.5.0"
 
@@ -6,19 +7,25 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.100"
     }
+    # random provider used (needed by sql_server and storage modules)
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5"
+    }
   }
 
-  # Remote backend (recommended)
-  # backend "azurerm" {
-  #   resource_group_name  = "rg-terraform-state"
-  #   storage_account_name = "tfstatestorage123"
-  #   container_name       = "tfstate"
-  #   key                  = "dev/terraform.tfstate"
-  # }
+  
+   backend "azurerm" {
+    resource_group_name  = "rg-terraform-state"
+     storage_account_name = "tfstatestorage123"
+     container_name       = "tfstate"
+     key                  = "dev/terraform.tfstate"
+   }
 }
+
+# subscription_id is not hardcoded here.
+# Terraform's azurerm provider automatically reads ARM_SUBSCRIPTION_ID.
 
 provider "azurerm" {
   features {}
-
-  subscription_id = "baa60071-a8e6-4ec4-ad1e-1d7c4f9673b8"
 }

@@ -1,6 +1,40 @@
+
+# ============================================================
+# Terraform
+# ============================================================
 .terraform/
 *.tfstate
 *.tfstate.backup
+*.tfplan
+.terraform.lock.hcl
+
+#  Block ALL local secrets files from ever being committed
+*.tfvars.local
+*.tfvars.secret
+secrets.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ============================================================
+# Credentials & Keys — NEVER commit these
+# ============================================================
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+*.pfx
+*.p12
+.env
+.env.*
+
+# ============================================================
+# OS & Editor
+# ============================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
 node_modules/
 build/
-.env

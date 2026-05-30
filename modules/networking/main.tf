@@ -53,8 +53,8 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_network_security_group" "appgw" {
   name                = "aamit-gateway-nsg"
-  location            = "centralindia"
-  resource_group_name = "rg-dev-aamit"
+  location            = "var.location"
+  resource_group_name = "var.rg_name"
 
   security_rule {
     name                       = "Allow-HTTP-HTTPS"
@@ -102,4 +102,8 @@ resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
   subnet_id = azurerm_subnet.subnet[each.key].id
 
   network_security_group_id = azurerm_network_security_group.nsg[each.value.nsg_key].id
+}
+resource "azurerm_subnet_network_security_group_association" "appgw_nsg_assoc" {
+  subnet_id                 = azurerm_subnet.subnet["appgw"].id
+  network_security_group_id = azurerm_network_security_group.appgw.id
 }
