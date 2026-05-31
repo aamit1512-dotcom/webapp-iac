@@ -14,13 +14,13 @@ terraform {
     }
   }
 
-  
-   backend "azurerm" {
+
+  backend "azurerm" {
     resource_group_name  = "rg-terraform-state"
-     storage_account_name = "tfstatestorage123"
-     container_name       = "tfstate"
-     key                  = "dev/terraform.tfstate"
-   }
+    storage_account_name = "stg82efa33d"
+    container_name       = "tfstate"
+    key                  = "dev/terraform.tfstate"
+  }
 }
 
 # subscription_id is not hardcoded here.

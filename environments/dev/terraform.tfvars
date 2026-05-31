@@ -2,7 +2,6 @@
 # ============================================================
 # terraform.tfvars  –  NON-SENSITIVE VALUES ONLY
 # ✅ Safe to commit to Git
-# ❌ DO NOT add passwords, usernames, or subscription IDs here
 # ============================================================
 
 rgs = {
@@ -192,35 +191,35 @@ public_ips = {
 }
 
 key_vaults = {
-  main = {
-    kv_name  = "kv-aamit"
-    rg_name  = "rg-dev-aamit"
+
+  dev = {
+
+    kv_name = "kv-dev-aamit"
+
+    rg_name = "rg-dev-aamit"
+
     location = "westus"
-    secrets  = {}   # ✅ secrets moved to terraform.tfvars.local
+
+    secrets = {
+
+      sql_password = "sql-admin-password"
+
+      storage_key = "storage-key"
+
+      app_secret = "app-secret"
+
+    }
+
     tags = {
+
       env = "dev"
+
     }
+
   }
+
 }
 
-storage_accounts = {
-  tfstate = {
-    resource_group_name      = "rg-dev-aamit"
-    location                 = "westus"
-    account_tier             = "Standard"
-    account_replication_type = "LRS"
-    tags = {
-      environment = "dev"
-    }
-  }
-}
-
-containers = {
-  tfstate = {
-    name                  = "tfstate"
-    container_access_type = "private"
-  }
-}
 
 # ✅ Non-sensitive VM config
 admin_username = "azureadmin"

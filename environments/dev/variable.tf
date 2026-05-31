@@ -3,7 +3,7 @@ variable "rgs" {
   type = map(object({
     name       = string
     location   = string
-    managed_by = optional(string) 
+    managed_by = optional(string)
     tags       = map(string)
   }))
 }
@@ -68,23 +68,13 @@ variable "vnets" {
   }))
 }
 
-variable "storage_accounts" {
-  description = "Storage accounts configuration"
-  type = map(object({
-    resource_group_name      = string
-    location                 = string
-    account_tier             = string
-    account_replication_type = string
-    tags                     = map(string)
-  }))
-  default = {}
-}
+
 
 variable "subnets" {
   type = map(object({
     name             = string
     rg_name          = string
-    nsg_key          = optional(string)  
+    nsg_key          = optional(string)
     vnet_name        = string
     address_prefixes = list(string)
   }))
@@ -101,8 +91,14 @@ variable "administrator_username" {
   type        = string
   sensitive   = true
 }
+variable "storage_key" {
+  sensitive = true
+}
 
-variable "containers" {}
+variable "app_secret" {
+  sensitive = true
+}
+
 
 variable "admin_username" {
   type = string

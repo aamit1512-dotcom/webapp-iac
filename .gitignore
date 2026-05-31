@@ -6,7 +6,6 @@
 *.tfstate
 *.tfstate.backup
 *.tfplan
-.terraform.lock.hcl
 
 #  Block ALL local secrets files from ever being committed
 *.tfvars.local

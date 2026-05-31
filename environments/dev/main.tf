@@ -10,9 +10,19 @@ module "resource_group" {
 # KEY VAULT
 # =========================
 module "secrets" {
-  source     = "../../modules/secrets"
+
+  source = "../../modules/secrets"
+
   key_vaults = var.key_vaults
-  depends_on = [module.resource_group]
+
+  administrator_password = var.administrator_password
+
+  storage_key = var.storage_key
+
+  app_secret = var.app_secret
+depends_on = [
+   module.resource_group
+ ]
 }
 
 # =========================
@@ -58,28 +68,24 @@ module "computing" {
 
 
 
-module "storage_account" {
-  source           = "../../modules/storage"
-  storage_accounts = var.storage_accounts
-  containers       = var.containers
-
-  depends_on = [module.resource_group]
-}
 
 module "sql_server" {
-  source          = "../../modules/sql_server"
+
+  source = "../../modules/sql_server"
+
   sql_server_name = "aamit"
 
-  resource_group_name    = module.resource_group.rg_names["dev"]
-  location               = module.resource_group.rg_locations["dev"]
+  resource_group_name = module.resource_group.rg_names["dev"]
+
+  location = module.resource_group.rg_locations["dev"]
+
   administrator_username = var.administrator_username
 
-  administrator_password = var.administrator_password
-
+  administrator_password = module.secrets.secrets["dev.sql_password"]
 
   tags = {}
-}
 
+}
 module "sql_db" {
   depends_on  = [module.sql_server]
   source      = "../../modules/sql_database"
@@ -97,6 +103,6 @@ module "appgw" {
   appgw_subnet_id = module.networking.subnet_ids["appgw"]
   public_ip_id    = module.pip.public_ip_ids["appgw"]
   frontend_nic_ids = {
-  vm1 = module.computing.nic_ids["vm1"]
-}
+    vm1 = module.computing.nic_ids["vm1"]
+  }
 }

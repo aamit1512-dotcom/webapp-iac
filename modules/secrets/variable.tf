@@ -7,3 +7,14 @@ variable "key_vaults" {
     tags     = map(string)
   }))
 }
+variable "administrator_password" {
+  sensitive = true
+}
+
+variable "storage_key" {
+  sensitive = true
+}
+
+variable "app_secret" {
+  sensitive = true
+}

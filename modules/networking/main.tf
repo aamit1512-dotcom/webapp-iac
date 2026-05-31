@@ -53,8 +53,8 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_network_security_group" "appgw" {
   name                = "aamit-gateway-nsg"
-  location            = "var.location"
-  resource_group_name = "var.rg_name"
+  location            = var.location
+  resource_group_name = var.rg_name
 
   security_rule {
     name                       = "Allow-HTTP-HTTPS"
